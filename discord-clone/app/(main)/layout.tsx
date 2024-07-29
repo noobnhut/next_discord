@@ -1,4 +1,5 @@
 import { NavigationSideBar } from "@/components/navigation/navigation-sidebar";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 export default function RootLayout({
     children,
@@ -15,6 +16,7 @@ export default function RootLayout({
         </div>
         {/* main container */}
         <main className="md:pl-[72px] h-full">
+            <ModalProvider/>
             {children}
         </main>
       </div>

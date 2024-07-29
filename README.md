@@ -49,3 +49,11 @@
 - npm i axios
 - npm install uuid
 - npm i -D @types/uuid
+
+### sidebar setup
+- npx shadcn-ui@latest add tooltip
+- npx shadcn-ui@latest add separator
+- npx shadcn-ui@latest add scroll-area
+
+### create server modal
+- npm i zustand
