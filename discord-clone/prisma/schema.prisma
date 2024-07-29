@@ -34,7 +34,7 @@ model Server{
   imageUrl String @db.Text
   inviteCode String
 
-  profileId String
+  profileId String 
   profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
   
   createdAt DateTime @default(now())
