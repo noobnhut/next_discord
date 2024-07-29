@@ -2,6 +2,7 @@
 /*
   form tạo ra 1 server
 */
+import axios from "axios";
 import {
   Dialog,
   DialogContent,
@@ -26,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { FileUpload } from "@/components/ui/file-upload";
+import { useRouter } from "next/navigation";
 // validate form input
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -37,11 +39,13 @@ const formSchema = z.object({
 });
 export const InitialModal = () => {
   // sử dụng usestate => set default isMounted = false
-  const [isMounted, setIsMounted]=useState(false)
+  const [isMounted, setIsMounted] = useState(false);
   // sử dung use effect gọi hàm setIsmounted ra set lại isMounted = true ở lần đầu load
-  useEffect(()=>{
-    setIsMounted(true)
-  },[])
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const router = useRouter(); // khởi tạo router
   // Tạo ra 1 form dữ liệu sử dụng react-hook-form
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -54,7 +58,18 @@ export const InitialModal = () => {
   // thao tác tương tác form
   const isLoading = form.formState.isSubmitSuccessful;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      const result = await axios.post("/api/servers", values);
+      if (result.data.status == false) {
+        alert(result.data.message);
+      } else {
+        form.reset();
+        router.refresh();
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -81,23 +96,24 @@ export const InitialModal = () => {
               {/* image upload */}
               <div className="flex items-center justify-center text-center">
                 <FormField
-                control={form.control}
-                name="imageUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Ảnh máy chủ
-                    </FormLabel>
+                  control={form.control}
+                  name="imageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Ảnh máy chủ
+                      </FormLabel>
 
-                    <FormControl>
-                      <FileUpload
-                      endpoint="serverImage"
-                      value={field.value}
-                      onChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage/>
-                  </FormItem>)}
+                      <FormControl>
+                        <FileUpload
+                          endpoint="serverImage"
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               {/* servername input */}
@@ -111,22 +127,24 @@ export const InitialModal = () => {
                     </FormLabel>
 
                     <FormControl>
-                      <Input disabled={isLoading} className="bg-zinc-300/50 border-0 focus-visiable:ring-0
+                      <Input
+                        disabled={isLoading}
+                        className="bg-zinc-300/50 border-0 focus-visiable:ring-0
                        text-black focus-visible:ring-offset-0"
-                       placeholder="Nhập tên máy chủ"
-                       {...field}/>
+                        placeholder="Nhập tên máy chủ"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage/>
-                  </FormItem>)}
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
             {/* footer modal */}
             <DialogFooter className="bg-gray-100 px-6 py-4">
-                  <Button
-                  variant="primary"
-                   disabled={isLoading}>
-                    Tạo máy chủ
-                  </Button>
+              <Button variant="primary" disabled={isLoading}>
+                Tạo máy chủ
+              </Button>
             </DialogFooter>
           </form>
         </Form>

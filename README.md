@@ -24,6 +24,7 @@
 - https://www.marketenterprise.vn/blog/prisma-ho-tro-phat-trien-phan-1.html
 
 ### setup prisma
+- npx prisma studio
 - npm i -D prisma
 - npx prisma init
 - npx prisma generate
@@ -43,3 +44,8 @@
 - lưu ý: có thể sử dụng cloudinary để thay thế
 - free trial được 2gb
 - npm install uploadthing @uploadthing/react react-dropzone
+
+## create server
+- npm i axios
+- npm install uuid
+- npm i -D @types/uuid
