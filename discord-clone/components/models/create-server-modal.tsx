@@ -1,4 +1,4 @@
-"use client";
+'use client';
 /*
   form tạo ra 1 server
 */

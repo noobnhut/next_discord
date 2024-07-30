@@ -1,3 +1,4 @@
+
 import { auth } from "@clerk/nextjs/server";
 import { db } from "./db";
 // trả về thông tin của 1 user
