@@ -34,3 +34,35 @@ export async function PATCH(
         console.log(error)
     }
 }
+
+export async function PUT(
+    req: Request,
+    { params }: { params: { serverId: string } }) {
+    try {
+        const {name,imageUrl}=await req.json()
+        const profile = await currentProfile()
+
+        if (!profile) {
+            return new NextResponse("Lỗi xác thực", { status: 401 })
+        }
+
+        if(!params.serverId)
+        {
+            return new NextResponse("Lỗi không thấy id", { status: 404 })
+        }
+
+        const server = await db.server.update({
+            where:{
+                id:params.serverId,
+                profileId:profile.id
+            },
+            data:{
+                name,imageUrl
+            }
+        })
+
+        return NextResponse.json(server)
+    } catch (error) {
+        console.log(error)
+    }
+}
