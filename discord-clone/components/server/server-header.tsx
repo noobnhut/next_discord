@@ -59,7 +59,9 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         )}
 
         {isAdmin && (
-          <DropdownMenuItem className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer">
+          <DropdownMenuItem 
+          onClick={() => onOpen("members", { server })}
+          className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer">
             Quản lý thành viên
             <Users className="h-4 w-4 ml-auto" />
           </DropdownMenuItem>
