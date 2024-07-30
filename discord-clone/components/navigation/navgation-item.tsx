@@ -4,7 +4,7 @@ import { useParams,useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { ActionTooltip } from "../ui/action-tooltip"
-
+// item render server
 interface NavigationItemProps{
     id:string;
     imageUrl:string;
@@ -41,6 +41,8 @@ export const NavigationItem = ({
                     fill
                     src={imageUrl}
                     alt=""
+                    sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority
                     />
                 </div>
              </button>

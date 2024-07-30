@@ -19,8 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider localization={viVN}>
-      <html lang="en" suppressContentEditableWarning>
-        <body className={cn(font.className,"bg-white dark:bg-[#313338]")}>
+      <html lang="en">
+        <body
+          className={cn(font.className, "bg-white dark:bg-[#313338]")}
+          suppressHydrationWarning={true}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"

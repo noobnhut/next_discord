@@ -6,9 +6,11 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "./navgation-item";
 import { ModeToggle } from "@/components/ui/model-toggle";
-import { UserButton } from "@clerk/nextjs";
+import { useClerk, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 export const NavigationSideBar = async () => {
+
   const profile = await currentProfile();
   if (!profile) {
     return redirect("/");
@@ -47,7 +49,6 @@ export const NavigationSideBar = async () => {
       <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
         <ModeToggle/>
         <UserButton
-        afterSignOutUrl="/"
         appearance={{
             elements:{
                 avatarBox:"h-[48px] w-[48px]"

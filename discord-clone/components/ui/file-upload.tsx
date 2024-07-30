@@ -20,6 +20,8 @@ export const FileUpload = ({onChange,value,endpoint}:FileUploadProps)=>{
                 src={value}
                 alt=""
                 className="rounded-full"
+                sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
                 />
                 
                 <button
