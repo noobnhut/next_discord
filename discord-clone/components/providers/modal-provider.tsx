@@ -1,10 +1,12 @@
 'use client'
 import { useEffect, useState } from "react"
-import { CreateServerModal } from "../models/create-server-modal"
-import { InviteServerModal } from "../models/invite-server-modal"
-import { EditServerModal } from "../models/edit-server-modal"
-import { ManageMemberModal } from "../models/manage-member-modal"
-import { CreateChannelModal } from "../models/create-channel-modal"
+import { CreateServerModal } from "@/components/models/create-server-modal"
+import { InviteServerModal } from "@/components/models/invite-server-modal"
+import { EditServerModal } from "@/components/models/edit-server-modal"
+import { ManageMemberModal } from "@/components/models/manage-member-modal"
+import { CreateChannelModal } from "@/components/models/create-channel-modal"
+import { LeaveServerModal } from "@/components/models/leave-server-modal"
+import { DeleteServerModal } from "../models/delete-server-modal"
 export const ModalProvider = ()=>{
     const [isMounted,setIsMounted]=useState(false)
     useEffect(()=>{
@@ -22,6 +24,8 @@ export const ModalProvider = ()=>{
             <EditServerModal/>
             <ManageMemberModal/>
             <CreateChannelModal/>
+            <LeaveServerModal/>
+            <DeleteServerModal/>
         </>
     ]
 }

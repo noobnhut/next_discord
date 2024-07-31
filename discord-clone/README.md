@@ -60,4 +60,5 @@
 
 ### create channel
 - npx shadcn-ui@latest add select
-- 
+
+### delete and leave server

@@ -67,7 +67,7 @@ export const CreateChannelModal = () => {
       name: "",
       type: ChannelType.TEXT,
     },
-  });
+  })
 
   // thao tác tương tác form
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
