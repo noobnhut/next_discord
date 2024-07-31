@@ -62,3 +62,5 @@
 - npx shadcn-ui@latest add select
 
 ### delete and leave server
+### search modal 
+- npx shadcn-ui@latest add command
