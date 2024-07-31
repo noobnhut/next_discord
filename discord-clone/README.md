@@ -66,3 +66,4 @@
 - npx shadcn-ui@latest add command
 
 ### channel list render
+## edit channel list

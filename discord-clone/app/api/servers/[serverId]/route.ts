@@ -1,7 +1,7 @@
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
+import axios from "axios";
 import { NextResponse } from "next/server";
-
 import { v4 as uuidv4 } from "uuid"
 
 export async function PATCH(
@@ -94,3 +94,4 @@ export async function DELETE(
         console.log(error)
     }
 }
+
