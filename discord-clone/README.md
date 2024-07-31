@@ -64,3 +64,5 @@
 ### delete and leave server
 ### search modal 
 - npx shadcn-ui@latest add command
+
+### channel list render

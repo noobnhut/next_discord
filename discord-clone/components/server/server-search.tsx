@@ -78,6 +78,7 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
                 {data?.map(({ id, icon, name }) => (
                   <div className="flex items-center w-full cursor-pointer mb-2 p-2 text-sm hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition "
                     onClick={() => {}}
+                    key={id}
                   >
                   <CommandItem key={id} className="sr-only"></CommandItem>
                     {icon}

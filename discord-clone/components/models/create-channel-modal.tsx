@@ -36,8 +36,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { ChannelType } from "@prisma/client";
-import qs from 'query-string';
-import { useState } from "react";
+import qs from "query-string";
+import { useEffect, useState } from "react";
 
 // validate form input
 const formSchema = z.object({
@@ -54,30 +54,39 @@ const formSchema = z.object({
 });
 
 export const CreateChannelModal = () => {
-  const { isOpen, onClose, type, onOpen } = useModal();
+  const { isOpen, onClose, type, onOpen, data } = useModal();
   const isModalOpen = isOpen && type === "createChannel";
   const router = useRouter(); // khởi tạo router
   const [isLoading, setIsLoading] = useState(false); // State to manage loading status
   const params = useParams();
 
   // Tạo ra 1 form dữ liệu sử dụng react-hook-form
+  const { channelType } = data;
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: ChannelType.TEXT,
+      type: channelType || ChannelType.TEXT,
     },
-  })
+  });
+  useEffect(() => {
+    if (channelType) {
+      form.setValue("type", channelType);
+    } else {
+      form.setValue("type", ChannelType.TEXT);
+    }
+  }, [channelType,form]);
 
   // thao tác tương tác form
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
       const url = qs.stringifyUrl({
-        url: '/api/channels',
+        url: "/api/channels",
         query: {
-          serverId: params?.serverId
-        }
+          serverId: params?.serverId,
+        },
       });
       const result = await axios.post(url, values);
       if (result.data.status == false) {

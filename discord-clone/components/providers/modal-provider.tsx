@@ -7,25 +7,27 @@ import { ManageMemberModal } from "@/components/models/manage-member-modal"
 import { CreateChannelModal } from "@/components/models/create-channel-modal"
 import { LeaveServerModal } from "@/components/models/leave-server-modal"
 import { DeleteServerModal } from "../models/delete-server-modal"
-export const ModalProvider = ()=>{
-    const [isMounted,setIsMounted]=useState(false)
-    useEffect(()=>{
-        setIsMounted(true)
-    },[])
 
-    if(!isMounted)
-    {
+export const ModalProvider = () => {
+    const [isMounted, setIsMounted] = useState(false)
+    
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if (!isMounted) {
         return null
     }
-    return[
+
+    return (
         <>
-            <CreateServerModal/>
-            <InviteServerModal/>
-            <EditServerModal/>
-            <ManageMemberModal/>
-            <CreateChannelModal/>
-            <LeaveServerModal/>
-            <DeleteServerModal/>
+            <CreateServerModal />
+            <InviteServerModal />
+            <EditServerModal />
+            <ManageMemberModal />
+            <CreateChannelModal />
+            <LeaveServerModal />
+            <DeleteServerModal />
         </>
-    ]
+    )
 }
