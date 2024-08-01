@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface ChatItemProps {
   id: string;
@@ -72,7 +73,7 @@ const ChatItem = ({
   const isImage = !isPDF && fileUrl;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const{onOpen}=useModal()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -240,7 +241,7 @@ const ChatItem = ({
             <ActionTooltip label="Xóa">
               <Trash
                 onClick={() => {
-                  setIsDeleting(true);
+                  onOpen("deleteMessage",{apiUrl:`${socketUrl}/${id}`,query:socketQuery})
                 }}
                 className="cursor-pointer ml-auto w-4 h-4 text-rose-500 
                     hover:text-rose-600 dark:hover:text-rose-300 transition"
