@@ -62,6 +62,7 @@
 - npx shadcn-ui@latest add select
 
 ### delete and leave server
+
 ### search modal 
 - npx shadcn-ui@latest add command
 
@@ -72,3 +73,10 @@
 - npx shadcn-ui@latest add sheet
 
 ### prisma complete
+
+### setup conversation
+
+### axios setup
+- npm i socket.io
+- npm i socket.io-client
+- npx shadcn-ui@latest add badge
