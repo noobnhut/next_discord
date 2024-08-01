@@ -10,6 +10,8 @@ import { useState } from "react";
 import axios from "axios";
 import queryString from "query-string";
 import { useModal } from "@/hooks/use-modal-store";
+import { EmojiPicker } from "./emoji-picket";
+import { useRouter } from "next/navigation";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -24,11 +26,13 @@ const formSchema = z.object({
 const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const {onOpen,onClose} = useModal()
   const [isLoading, setIsLoading] = useState(false);
+  const route = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: "",
     },
+
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -39,6 +43,8 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
             }
         )
         await axios.post(url,values)
+        form.reset()
+        route.refresh()
     } catch (error) {
         console.log(error)
     }
@@ -65,6 +71,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
                   <Input
                     disabled={isLoading}
+                    autoComplete="off"
                     placeholder={`Nhắn ${type==="conversation"? name:"#" + name}`}
                     {...field}
                     className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0
@@ -72,7 +79,8 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   />
 
                   <div className="absolute top-7 right-8">
-                    <Smile />
+                    <EmojiPicker
+                    onChange={(emoji:string)=>field.onChange(`${field.value} ${emoji}`)}/>
                   </div>
                 </div>
               </FormControl>

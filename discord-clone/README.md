@@ -76,7 +76,11 @@
 
 ### setup conversation
 
-### axios setup
+### socket setup
 - npm i socket.io
 - npm i socket.io-client
 - npx shadcn-ui@latest add badge
+
+## chat input
+- npx shadcn-ui@latest add popover
+- npm i emoji-mart @emoji-mart/data  @emoji-mart/react
