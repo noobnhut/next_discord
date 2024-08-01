@@ -70,3 +70,5 @@
 
 ### channel page
 - npx shadcn-ui@latest add sheet
+
+### prisma complete
