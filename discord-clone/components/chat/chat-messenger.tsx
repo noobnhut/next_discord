@@ -1,11 +1,16 @@
 "use client"
 
 import { Member, MemberRole, Message, Profile } from "@prisma/client";
-import { string } from "zod";
+
 import ChatWellcome from "./chat-wellcome";
-import useChatQuery from "@/hooks/use-chat-query";
 import { Loader2, ServerCrash } from "lucide-react";
+import ChatItem from "./chat-item";
+
+import useChatQuery from "@/hooks/use-chat-query";
 import { Fragment } from "react";
+import {format} from 'date-fns'
+import { vi } from "date-fns/locale";
+
 type MessageWithMemberWithProfile = Message & {
     member:Member &{
         profile:Profile
@@ -22,6 +27,7 @@ interface ChatMessengerProps{
     paramValue:string,
     type:"channel"|"conversation"
 }
+const DATE_FORMAT = "d MMM yyy, HH:mm"
 const ChatMessenge = ({name,member,chatId,apiUrl,socketUrl,socketQuery,paramKey,type,paramValue}:ChatMessengerProps) => {
     const queryKey = `chat:${chatId}`
     const {
@@ -62,9 +68,20 @@ const ChatMessenge = ({name,member,chatId,apiUrl,socketUrl,socketQuery,paramKey,
                 {data?.pages?.map((group,i)=>(
                     <Fragment key={i}>
                         {group.items.map((message:MessageWithMemberWithProfile)=>(
-                            <div key={message.id}>
-                                {message.content}
-                            </div>
+                            <ChatItem
+                                key={message.id}
+                                id={message.id}
+                                content={message.content}
+                                fileUrl={message.fileUrl}
+                                deleted={message.deleted}
+                                timestamp={format(new Date(message.createdAt), DATE_FORMAT, {
+                                    locale: vi,
+                                  })}
+                                isUpdate={message.updatedAt !== message.createdAt}
+                                socketUrl={socketUrl}
+                                socketQuery={socketQuery}
+                                currentMember={member} 
+                                member={message.member}/>
                         ))}
                     </Fragment>
                 ))}
