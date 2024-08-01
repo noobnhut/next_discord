@@ -84,3 +84,5 @@
 ## chat input
 - npx shadcn-ui@latest add popover
 - npm i emoji-mart @emoji-mart/data  @emoji-mart/react
+
+- npm i @tanstack/react-query
