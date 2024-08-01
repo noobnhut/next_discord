@@ -67,3 +67,6 @@
 
 ### channel list render
 ## edit channel list
+
+### channel page
+- npx shadcn-ui@latest add sheet
