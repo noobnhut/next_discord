@@ -6,7 +6,7 @@
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socketdotio&logoColor=white)
 ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-0B0B45?style=for-the-badge&logo=shadcn&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-
+![LiveKit](https://img.shields.io/badge/LiveKit-00A4E4?style=for-the-badge&logo=livekit&logoColor=white)
 ## Overview
 
 This project is a Discord-like application built using modern web technologies. It leverages **Next.js** for the front-end, **MySQL** with **Prisma** for database management, and **Socket.IO** for real-time communication. Additionally, it utilizes **shadcn/ui** for UI components and **TailwindCSS** for styling.
@@ -19,7 +19,7 @@ This project is a Discord-like application built using modern web technologies. 
 - **Socket.IO**: Real-time, bidirectional, event-based communication.
 - **shadcn/ui**: Comprehensive UI component library.
 - **TailwindCSS**: Utility-first CSS framework.
-
+- **LiveKit**: The realtime chat, video and data.
 ## Installation
 
 1. Clone the repository:
