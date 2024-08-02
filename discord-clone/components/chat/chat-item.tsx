@@ -25,6 +25,7 @@ import * as z from "zod";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { useModal } from "@/hooks/use-modal-store";
+import { useParams, useRouter } from "next/navigation";
 
 interface ChatItemProps {
   id: string;
@@ -73,8 +74,16 @@ const ChatItem = ({
   const isImage = !isPDF && fileUrl;
 
   const [isEditing, setIsEditing] = useState(false);
-  const{onOpen}=useModal()
-
+  const { onOpen } = useModal();
+  const router = useRouter()
+  const params = useParams()
+  const onMemberClick = () =>{
+    if(member.id === currentMember.id)
+    {
+      return;
+    }
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
+  }
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -92,17 +101,16 @@ const ChatItem = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const isLoading = form.formState.isSubmitting
+  const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-   
     try {
-        const url = qs.stringifyUrl({
-            url:`${socketUrl}/${id}`,
-            query:socketQuery
-        })
-        await axios.patch(url,values)
-        form.reset()
-        setIsEditing(false)
+      const url = qs.stringifyUrl({
+        url: `${socketUrl}/${id}`,
+        query: socketQuery,
+      });
+      await axios.patch(url, values);
+      form.reset();
+      setIsEditing(false);
     } catch (error) {
       console.log(error);
     }
@@ -116,7 +124,7 @@ const ChatItem = ({
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="group flex gap-x-2 items-center w-full">
-        <div className="cursor-pointer hover:drop-shadow-md transition">
+        <div onClick={onMemberClick} className="cursor-pointer hover:drop-shadow-md transition">
           <UserAvatar src={member.profile.imageUrl} />
         </div>
 
@@ -198,7 +206,7 @@ const ChatItem = ({
                       <FormControl>
                         <div className="w-full relative">
                           <Input
-                          disabled={isLoading}
+                            disabled={isLoading}
                             className="p-2 bg-zinc-200/90 border-0 focus-visiable:ring-0
                    text-black focus-visible:ring-offset-0"
                             placeholder="Nhập tên kênh"
@@ -241,7 +249,10 @@ const ChatItem = ({
             <ActionTooltip label="Xóa">
               <Trash
                 onClick={() => {
-                  onOpen("deleteMessage",{apiUrl:`${socketUrl}/${id}`,query:socketQuery})
+                  onOpen("deleteMessage", {
+                    apiUrl: `${socketUrl}/${id}`,
+                    query: socketQuery,
+                  });
                 }}
                 className="cursor-pointer ml-auto w-4 h-4 text-rose-500 
                     hover:text-rose-600 dark:hover:text-rose-300 transition"
