@@ -7,14 +7,18 @@ import { redirect } from "next/navigation";
 import { Conversation } from "@prisma/client";
 import ChatMessenge from "@/components/chat/chat-messenger";
 import ChatInput from "@/components/chat/chat-input";
+import MediaRoom from "@/components/ui/media-room";
 interface ConversationIdPageProps {
   params: {
     serverId: string;
     memberId: string;
-  };
+  },
+  searchParams:{
+    video?:boolean
+  }
 }
 
-const ConversationIdPage = async ({ params }: ConversationIdPageProps) => {
+const ConversationIdPage = async ({ params ,searchParams}: ConversationIdPageProps) => {
   const profile = await currentProfile();
   if (!profile) {
     return auth().redirectToSignIn();
@@ -55,7 +59,14 @@ const ConversationIdPage = async ({ params }: ConversationIdPageProps) => {
         imageUrl={otherMember.profile.imageUrl}
         type="conversation"
       />
-      <ChatMessenge
+      {searchParams.video && (
+        <MediaRoom
+        chatId={conversation.id} video={true} audio={true}
+        />
+      )}
+      {!searchParams.video && (
+        <>
+         <ChatMessenge
         member={currentMember}
         name={otherMember.profile.name}
         chatId={conversation.id}
@@ -76,6 +87,9 @@ const ConversationIdPage = async ({ params }: ConversationIdPageProps) => {
           conversationId: conversation.id,
         }}
       />
+        </>
+      )}
+     
     </div>
   );
 };
