@@ -89,3 +89,4 @@
 - npm i date-fns
 
 ### livekit
+?sslmode=require&sslcert='./singlestore_bundle.pem'
