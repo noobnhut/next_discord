@@ -26,7 +26,6 @@ This project is a Discord-like application built using modern web technologies. 
    ```bash
    git clone https://github.com/noobnhut/next_discord.git
    cd next_discord
-   cd discord-clone
    ```
 
 2. Install the dependencies:
